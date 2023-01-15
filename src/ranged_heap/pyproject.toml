@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "ranged-heap"
+version = "0.1.0"
+description = "RangedHeap data structure"
+authors = ["Giuseppe Ambrosio <giuambro97@gmail.com>"]
+readme = "README.md"
+packages = [{include = "ranged_heap"}]
+repository = "https://github.com/giuseppeambrosio97/ranged-heap"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

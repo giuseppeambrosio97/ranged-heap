@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "ranged-heap"
+name = "ranged_heap"
 version = "0.1.0"
 description = "RangedHeap data structure"
 authors = ["Giuseppe Ambrosio <giuambro97@gmail.com>"]
@@ -9,6 +9,10 @@ repository = "https://github.com/giuseppeambrosio97/ranged-heap"
 
 [tool.poetry.dependencies]
 python = "^3.9"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.1"
+pytest-cov = "^4.0.0"
 
 [build-system]
 requires = ["poetry-core"]

@@ -2,7 +2,7 @@
     This module contains the implementation of RangedHeap data structure.
 """
 
-from typing import Any, List, Tuple
+from typing import Any, List, Tuple, Set
 
 
 class RangedHeap:
@@ -25,7 +25,7 @@ class RangedHeap:
         self.best_id = 0 if min_ else -1
 
         self.size = len(choices)
-        self.ranged = [set() for _ in range(k+1)]
+        self.ranged: List[Set] = [set() for _ in range(k+1)]
         self.actual_value_ranged = []
 
         for choice in choices:
@@ -36,19 +36,14 @@ class RangedHeap:
                 self.actual_value_ranged.append(id)
 
     def pop_best(self) -> Any:
-        """_summary_
-
-        Returns:
-            Any: _description_
-        """
         if self.size >= 1:
             choice_to_pick = self._pop_best_twins()
             self.size -= 1
             if not self.ranged[self.actual_value_ranged[self.best_id]]:
                 del self.actual_value_ranged[self.best_id]
             return choice_to_pick
-        else:
-            raise RuntimeError('The Ranged Heap is empty!')
+        
+        raise RuntimeError('The Ranged Heap is empty!')
 
     def _pop_best_twins(self) -> Any:       
         choice_to_pick = list(
@@ -61,8 +56,8 @@ class RangedHeap:
         if self.size >= 1:
             choice_to_pick = self._get_best_twins()
             return choice_to_pick
-        else:
-            raise RuntimeError('The Ranged Heap is empty!')
+        
+        raise RuntimeError('The Ranged Heap is empty!')
 
     def _get_best_twins(self) -> Any:    
         choice_to_pick = list(
@@ -135,11 +130,7 @@ class RangedHeap:
             for choice in choice_per_value:
                 choices_key += ' ' + str(choice)
             s += '[' + str(id) + ']->' + choices_key + '\n'
-            print(s)
         return s
-
-    def print_actual_value_ranged(self):
-        print(self.actual_value_ranged)
 
     def __len__(self):
         return self.size

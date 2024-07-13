@@ -1,3 +1,41 @@
+#### RUFF
+line-length = 88
+
+# Assume Python 3.10.
+target-version = "py310"
+
+# A list of file patterns to include when linting.
+include = ["**/pyproject.toml", "*.py", "*.pyi"]
+# extend-include = ["*.ipynb"]
+
+# Always autofix, but never try to fix `F401` (unused imports).
+fix = true
+
+# Exclude a variety of commonly ignored directories (you can have some problems)
+exclude = [
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    ".venv", 
+    "*ipynb_checkpoints", 
+    "*.ipynb"
+]
+
 [lint]
 fixable = ["ALL"]
 unfixable = ["F401"]

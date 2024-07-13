@@ -1,8 +1,10 @@
+"""Custom exception raised by RangedHeap."""
+
 import abc
 from typing import Optional
 
 
-class RangedHeapBaseException(abc.ABC, Exception):
+class RangedHeapBaseError(abc.ABC, Exception):
     """Base class for other exceptions with default error message."""
 
     default_message: str = "An error occurred."
@@ -13,19 +15,19 @@ class RangedHeapBaseException(abc.ABC, Exception):
         super().__init__(message)
 
 
-class InvalidRangeError(RangedHeapBaseException):
+class InvalidRangeError(RangedHeapBaseError):
     """Raised when the range k is less than 0."""
 
     default_message: str = "k must be greater or equal to 0."
 
 
-class EmptyHeapError(RangedHeapBaseException):
+class EmptyHeapError(RangedHeapBaseError):
     """Raised when trying to pop or get the best choice from an empty heap."""
 
     default_message: str = "The Ranged Heap is empty!"
 
 
-class ChoiceNotFoundError(RangedHeapBaseException):
+class ChoiceNotFoundError(RangedHeapBaseError):
     """Raised when attempting to delete a choice that doesn't exist in the specified value range."""
 
     default_message: str = "Choice {key} not found in value {value}."
@@ -34,7 +36,7 @@ class ChoiceNotFoundError(RangedHeapBaseException):
         super().__init__(message, key=key, value=value)
 
 
-class InvalidChoiceError(RangedHeapBaseException):
+class InvalidChoiceError(RangedHeapBaseError):
     """Raised when attempting to add or adjust a choice with an invalid value (out of range)."""
 
     default_message: str = "Value {value} is out of range."

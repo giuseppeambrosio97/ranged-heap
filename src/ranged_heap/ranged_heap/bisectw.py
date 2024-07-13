@@ -1,10 +1,11 @@
-from typing import List
+"""Wrappers around bisect python standard library."""
+
 from bisect import bisect_left, insort_left
+from typing import List
 
 
 def bs_delete(a: List[int], x: int) -> int:
-    """
-    Deletes the first occurrence of `x` from the sorted list `a`.
+    """Deletes the first occurrence of `x` from the sorted list `a`.
 
     Args:
         a (List[int]): Sorted list of int numbers.
@@ -24,8 +25,7 @@ def bs_delete(a: List[int], x: int) -> int:
 
 
 def bs_add(a: List[int], x: int) -> int:
-    """
-    Adds `x` to the sorted list `a` while maintaining sorted order.
+    """Adds `x` to the sorted list `a` while maintaining sorted order.
 
     Args:
         a (List[int]): Sorted list of int numbers.

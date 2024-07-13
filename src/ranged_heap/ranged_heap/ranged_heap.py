@@ -1,22 +1,63 @@
-"""
-This module contains the implementation of the RangedHeap data structure.
-"""
+"""Implementation of the RangedHeap data structure."""
 
-from typing import Any, List, Tuple, Set
+from typing import Any, List, Set, Tuple
 
+from .bisectw import bs_add, bs_delete
 from .exceptions import (
-    InvalidRangeError,
+    ChoiceNotFoundError,
     EmptyHeapError,
     InvalidChoiceError,
-    ChoiceNotFoundError,
+    InvalidRangeError,
 )
-from .bisectw import bs_add, bs_delete
 
 
 class RangedHeap:
+    """RangedHeap is a data structure that maintains a collection of choices associated with integer values within a specified range.
+
+    Attributes:
+        k (int): The range of values a choice can have.
+        best_id (int): Index indicating whether to return the min or max value choice.
+        size (int): Number of choices currently in the heap.
+        ranged (List[Set]): List of sets where each set contains choices for a specific value.
+        actual_value_ranged (List): List of actual values present in the heap.
+
+    Methods:
+        __init__(self, k: int, choices: List[Tuple[Any, int]], min_: bool = True):
+            Initializes a RangedHeap instance.
+
+        pop_best(self) -> Any:
+            Removes and returns the best choice from the heap.
+
+        _pop_best_twins(self) -> Any:
+            Helper method to remove and return the best choice.
+
+        get_best(self) -> Any:
+            Returns the best choice from the heap without removing it.
+
+        _get_best_twins(self) -> Any:
+            Helper method to return the best choice without removing it.
+
+        delete_choice(self, key: Any, value: int) -> None:
+            Deletes a specific choice from the heap.
+
+        add_choice(self, key: Any, value: int) -> None:
+            Adds a new choice to the heap.
+
+        adjust_choice(self, key: Any, old_value: int, new_value: int) -> None:
+            Adjusts the value of an existing choice in the heap.
+
+        __is_invalid_choice(self, value: int) -> bool:
+            Checks if a value is invalid.
+
+        __str__(self) -> str:
+            Returns a string representation of the heap.
+
+        __len__(self) -> int:
+            Returns the number of choices in the heap.
+    """
+
     def __init__(self, k: int, choices: List[Tuple[Any, int]], min_: bool = True):
-        """
-        Initialize a RangedHeap.
+        """Initialize a RangedHeap.
 
         Args:
             k (int): A positive integer indicating the range of values a choice can have.
@@ -39,13 +80,12 @@ class RangedHeap:
         for choice in choices:
             self.ranged[choice[1]].add(choice[0])
 
-        for id, choices_id in enumerate(self.ranged):
+        for idx, choices_id in enumerate(self.ranged):
             if choices_id:
-                self.actual_value_ranged.append(id)
+                self.actual_value_ranged.append(idx)
 
     def pop_best(self) -> Any:
-        """
-        Remove and return the best choice from the heap.
+        """Remove and return the best choice from the heap.
 
         Returns:
             Any: The key of the best choice.
@@ -63,8 +103,7 @@ class RangedHeap:
         raise EmptyHeapError()
 
     def _pop_best_twins(self) -> Any:
-        """
-        Helper method to remove and return the best choice.
+        """Helper method to remove and return the best choice.
 
         Returns:
             Any: The key of the best choice.
@@ -74,8 +113,7 @@ class RangedHeap:
         return choice_to_pick
 
     def get_best(self) -> Any:
-        """
-        Return the best choice from the heap without removing it.
+        """Return the best choice from the heap without removing it.
 
         Returns:
             Any: The key of the best choice.
@@ -89,18 +127,15 @@ class RangedHeap:
         raise EmptyHeapError()
 
     def _get_best_twins(self) -> Any:
-        """
-        Helper method to return the best choice without removing it.
+        """Helper method to return the best choice without removing it.
 
         Returns:
             Any: The key of the best choice.
         """
-        choice_to_pick = list(self.ranged[self.actual_value_ranged[self.best_id]])[0]
-        return choice_to_pick
+        return list(self.ranged[self.actual_value_ranged[self.best_id]])[0]
 
     def delete_choice(self, key: Any, value: int) -> None:
-        """
-        Delete a specific choice from the heap.
+        """Delete a specific choice from the heap.
 
         Args:
             key (Any): The key of the choice to be deleted.
@@ -123,8 +158,7 @@ class RangedHeap:
             bs_delete(self.actual_value_ranged, value)
 
     def add_choice(self, key: Any, value: int) -> None:
-        """
-        Add a new choice to the heap.
+        """Add a new choice to the heap.
 
         Args:
             key (Any): The key of the choice to be added.
@@ -142,8 +176,7 @@ class RangedHeap:
         self.size += 1
 
     def adjust_choice(self, key: Any, old_value: int, new_value: int) -> None:
-        """
-        Adjust the value of an existing choice in the heap.
+        """Adjust the value of an existing choice in the heap.
 
         Args:
             key (Any): The key of the choice to be adjusted.
@@ -173,8 +206,7 @@ class RangedHeap:
         self.ranged[new_value].add(key)
 
     def __is_invalid_choice(self, value: int) -> bool:
-        """
-        Check if a value is invalid.
+        """Check if a value is invalid.
 
         Args:
             value (int): The value to check.
@@ -185,21 +217,19 @@ class RangedHeap:
         return value < 0 or value > self.k
 
     def __str__(self) -> str:
-        """
-        Return a string representation of the heap.
+        """Return a string representation of the heap.
 
         Returns:
             str: String representation of the heap.
         """
         s = ""
-        for id, choices_per_value in enumerate(self.ranged):
+        for idx, choices_per_value in enumerate(self.ranged):
             choices_key = " ".join(choices_per_value)
-            s += f"[{id}] -> {{{choices_key}}}\n"
+            s += f"[{idx}] -> {{{choices_key}}}\n"
         return s
 
     def __len__(self) -> int:
-        """
-        Return the number of choices in the heap.
+        """Return the number of choices in the heap.
 
         Returns:
             int: The number of choices in the heap.

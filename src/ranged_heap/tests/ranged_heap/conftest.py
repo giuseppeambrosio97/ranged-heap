@@ -17,9 +17,9 @@ def ranged_heap():
         ("c3", 3),
         ("c4", 1),
         ("c5", 0),
-        ("c6", 4),
+        ("c6", 6),
     ]
-    return rh.RangedHeap(k=4, choices=choices)
+    return rh.RangedHeap(k=6, choices=choices)
 
 # def ranged_heap_str():
 #     with open(RANGED_HEAP_STR_PATH) as f:

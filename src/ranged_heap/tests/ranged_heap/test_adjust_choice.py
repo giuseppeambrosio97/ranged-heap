@@ -14,11 +14,12 @@ def test_adjust_choice(ranged_heap: rh.RangedHeap):
         and the new value is added to the appropriate range.
     """
     size_before_adjust = len(ranged_heap)
-    ranged_heap.adjust_choice("c4", 1, 3)
+    new_choice_value = 5
+    ranged_heap.adjust_choice("c4", 1, new_choice_value)
 
     assert len(ranged_heap) == size_before_adjust
     assert "c4" not in ranged_heap.ranged[1]
-    assert "c4" in ranged_heap.ranged[3]
+    assert "c4" in ranged_heap.ranged[new_choice_value]
 
 def test_adjust_choice_old_value_invalid_choice_error(ranged_heap: rh.RangedHeap):
     """Test adjusting a choice in the RangedHeap with an invalid old value raises InvalidChoiceError.

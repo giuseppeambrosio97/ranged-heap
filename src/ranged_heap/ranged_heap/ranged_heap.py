@@ -198,8 +198,7 @@ class RangedHeap:
 
         self.ranged[old_value].remove(key)
 
-        if not self.ranged[old_value]:
-            bs_delete(self.actual_value_ranged, old_value)
+        bs_delete(self.actual_value_ranged, old_value)
 
         if not self.ranged[new_value]:
             bs_add(self.actual_value_ranged, new_value)

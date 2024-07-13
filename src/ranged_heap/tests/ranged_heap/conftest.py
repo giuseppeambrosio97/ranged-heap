@@ -1,11 +1,11 @@
 import pytest
 
 import ranged_heap as rh
+from tests import RANGED_HEAP_STR_PATH
 
-# from tests import RANGED_HEAP_STR_PATH
 
 @pytest.fixture
-def ranged_heap():
+def ranged_heap() -> rh.RangedHeap:
     """Provide a fixture that returns a RangedHeap instance with predefined choices.
 
     Returns:
@@ -21,12 +21,13 @@ def ranged_heap():
     ]
     return rh.RangedHeap(k=6, choices=choices)
 
-# def ranged_heap_str():
-#     with open(RANGED_HEAP_STR_PATH) as f:
-#         return f.read()
+@pytest.fixture
+def ranged_heap_str() -> str:
+    with open(RANGED_HEAP_STR_PATH) as f:
+        return f.read()
 
 @pytest.fixture
-def ranged_heap_empty():
+def ranged_heap_empty() -> rh.RangedHeap:
     """Provide a fixture that returns an empty RangedHeap instance.
 
     Returns:
@@ -34,4 +35,3 @@ def ranged_heap_empty():
     """
     return rh.RangedHeap(k=4, choices=[])
 
-# print(ranged_heap_str)

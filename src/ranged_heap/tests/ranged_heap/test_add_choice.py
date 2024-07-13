@@ -13,10 +13,11 @@ def test_add_choice(ranged_heap: rh.RangedHeap):
         The size of the RangedHeap after adding the choice and the presence of the new choice.
     """
     size_before_add = len(ranged_heap)
-    ranged_heap.add_choice("c7", 2)
+    new_choice_value = 5
+    ranged_heap.add_choice("c7", new_choice_value)
 
     assert len(ranged_heap) == size_before_add + 1
-    assert "c7" in ranged_heap.ranged[2]
+    assert "c7" in ranged_heap.ranged[new_choice_value]
 
 def test_add_choice_invalid_choice_error(ranged_heap: rh.RangedHeap):
     """Test adding an invalid choice to the RangedHeap raises an InvalidChoiceError.

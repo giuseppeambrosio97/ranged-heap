@@ -3,9 +3,16 @@ name = "ranged_heap"
 version = "0.1.0"
 description = "RangedHeap data structure"
 authors = ["Giuseppe Ambrosio <giuambro97@gmail.com>"]
+maintainers = ["Giuseppe Ambrosio <giuambro97@gmail.com>"]
+license = "Apache-2.0"
 readme = "README.md"
 packages = [{include = "ranged_heap"}]
 repository = "https://github.com/giuseppeambrosio97/ranged-heap"
+keywords = [
+    "datastructure",
+    "heap",
+    "greedy-algorithm"
+]
 
 [tool.poetry.dependencies]
 python = "^3.9"

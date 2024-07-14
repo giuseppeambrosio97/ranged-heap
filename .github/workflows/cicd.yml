@@ -75,6 +75,7 @@ jobs:
           dependencies: '--with doc'
 
       - name: Build documentation
+        working-directory: ./src/ranged_heap
         run: poetry run mkdocs build
 
       - name: Deploy to GitHub Pages

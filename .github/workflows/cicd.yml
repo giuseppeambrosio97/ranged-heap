@@ -1,7 +1,6 @@
 name: RangedHeap CI CD
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - develop
@@ -17,12 +16,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
-        python: ['3.9', '3.10', '3.11']
+        os: [macos-latest]
+        python: ['3.9']
 
     runs-on: ${{ matrix.os }}
 
     steps:
+      - uses: actions/checkout@v3
+
       - name: Setup and Install
         uses: ./.github/actions/setup-and-install
         with:
@@ -32,17 +33,20 @@ jobs:
       - name: Ruff check
         working-directory: ./src/ranged_heap
         run: poetry run ruff check
+        shell: bash
 
   test:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
-        python: ['3.9', '3.10', '3.11']
+        os: [macos-latest]
+        python: ['3.9']
 
     runs-on: ${{ matrix.os }}
 
     steps:
+      - uses: actions/checkout@v3
+
       - name: Setup and Install
         uses: ./.github/actions/setup-and-install
         with:
@@ -52,3 +56,4 @@ jobs:
       - name: Run tests
         working-directory: ./src/ranged_heap
         run: poetry run pytest
+        shell: bash

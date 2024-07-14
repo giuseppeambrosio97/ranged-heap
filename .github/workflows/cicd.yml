@@ -23,19 +23,11 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Setup and Install
+        uses: ./.github/actions/setup-and-install
         with:
           python-version: ${{ matrix.python }}
-
-      - name: Install Poetry
-        run: pip install poetry
-
-      - name: Install dependency
-        working-directory: ./src/ranged_heap
-        run: poetry install --with dev
+          dependencies: '--with dev'
 
       - name: Ruff check
         working-directory: ./src/ranged_heap
@@ -51,20 +43,12 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v3
+      - name: Setup and Install
+        uses: ./.github/actions/setup-and-install
+        with:
+          python-version: ${{ matrix.python }}
+          dependencies: '--with test'
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python }}
-
-    - name: Install Poetry
-      run: pip install poetry
-
-    - name: Install dependency
-      working-directory: ./src/ranged_heap
-      run: poetry install --with test
-
-    - name: Run tests
-      working-directory: ./src/ranged_heap
-      run: poetry run pytest
+      - name: Run tests
+        working-directory: ./src/ranged_heap
+        run: poetry run pytest

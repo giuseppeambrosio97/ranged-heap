@@ -1,0 +1,70 @@
+name: RangedHeap CI CD
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+
+permissions:
+  contents: read
+
+jobs:
+  lint: 
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        python: ['3.9']
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Install dependency
+        working-directory: ./src/ranged_heap
+        run: poetry install --with dev
+
+      - name: Ruff check
+        working-directory: ./src/ranged_heap
+        run: poetry run ruff check
+
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        python: ['3.9']
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python }}
+
+    - name: Install Poetry
+      run: pip install poetry
+
+    - name: Install dependency
+      working-directory: ./src/ranged_heap
+      run: poetry install --with test
+
+    - name: Run tests
+      working-directory: ./src/ranged_heap
+      run: poetry run pytest

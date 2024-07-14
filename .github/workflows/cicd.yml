@@ -12,7 +12,6 @@ on:
 
 permissions:
   contents: read
-  pages: write
 
 jobs:
   # lint:
@@ -65,6 +64,8 @@ jobs:
     if: github.ref == 'refs/heads/main'
     # needs: [lint, test]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v3

@@ -2,8 +2,6 @@
 
 Welcome to the RangedHeap documentation! This documentation provides an overview of the RangedHeap data structure, its methods, and examples of its usage.
 
-For more details, please refer to the [documentation](https://giuseppeambrosio97.github.io/ranged-heap/).
-
 ## What is RangedHeap?
 
 RangedHeap is a data structure designed to manage a collection of choices associated with integer values within a specified range [0, k]. It supports efficient operations for adding, deleting, and retrieving choices based on their integer values.

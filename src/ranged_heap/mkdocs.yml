@@ -38,6 +38,7 @@ plugins:
         python:
           options:
             docstring_style: google
+  - include-markdown
 
 nav:
   - RangedHeap:
@@ -56,10 +57,10 @@ nav:
       - errors: api/errors.md
       - bisectw: api/bisectw.md
   - Development:
+      - Roadmap: development/roadmap.md
       - Contributing: development/contributing.md
       - Code of Conduct: development/code_of_conduct.md
       - Changelog: development/changelog.md
-      - Roadmap: development/roadmap.md
 
 markdown_extensions:
   - pymdownx.highlight:

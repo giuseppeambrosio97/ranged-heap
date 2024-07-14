@@ -78,8 +78,12 @@ jobs:
         working-directory: ./src/ranged_heap
         run: poetry run mkdocs build
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
+      - name: DEBUG TMP
+        run: |
+          echo "GitHub Token: ${{ secrets.GITHUB_TOKEN }}"
+
+      # - name: Deploy to GitHub Pages
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: ./site

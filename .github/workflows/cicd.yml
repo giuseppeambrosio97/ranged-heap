@@ -85,3 +85,27 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./src/ranged_heap/site
+
+  tag:
+    if: github.ref == 'refs/heads/main'
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup and Install
+        uses: ./.github/actions/setup-and-install
+
+      - name: Create git tag
+        id: get_version
+        run: echo ::set-output name=VERSION::$(poetry version -s)
+      
+      - name: Push tag
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git tag v${{ steps.get_version.outputs.VERSION }}
+          git push origin v${{ steps.get_version.outputs.VERSION }}

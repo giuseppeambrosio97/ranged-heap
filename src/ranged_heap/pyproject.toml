@@ -26,6 +26,11 @@ ruff = "^0.5.1"
 pytest = "^7.2.1"
 pytest-cov = "^4.0.0"
 
+[tool.poetry.group.doc.dependencies]
+mkdocs = "^1.6.0"
+mkdocs-material = "^9.5.28"
+mkdocstrings = {extras = ["python"], version = "^0.25.1"}
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

@@ -3,7 +3,7 @@
 from typing import Any, List, Set, Tuple
 
 from .bisectw import bs_add, bs_delete
-from .exceptions import (
+from .errors import (
     ChoiceNotFoundError,
     EmptyHeapError,
     InvalidChoiceError,

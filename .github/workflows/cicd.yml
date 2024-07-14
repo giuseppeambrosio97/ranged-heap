@@ -4,15 +4,17 @@ on:
   push:
     branches:
       - develop
+      - main
   pull_request:
     branches:
       - develop
+      - main
 
 permissions:
   contents: read
 
 jobs:
-  lint: 
+  lint:
     strategy:
       fail-fast: false
       matrix:
@@ -57,3 +59,26 @@ jobs:
         working-directory: ./src/ranged_heap
         run: poetry run pytest
         shell: bash
+
+  doc:
+    if: github.ref == 'refs/heads/main'
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup and Install
+        uses: ./.github/actions/setup-and-install
+        with:
+          python-version: "3.9"
+          dependencies: '--with doc'
+
+      - name: Build documentation
+        run: poetry run mkdocs build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site

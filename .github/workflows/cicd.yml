@@ -1,0 +1,59 @@
+name: RangedHeap CI CD
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+
+permissions:
+  contents: read
+
+jobs:
+  lint: 
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest]
+        python: ['3.9']
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup and Install
+        uses: ./.github/actions/setup-and-install
+        with:
+          python-version: ${{ matrix.python }}
+          dependencies: '--with dev'
+
+      - name: Ruff check
+        working-directory: ./src/ranged_heap
+        run: poetry run ruff check
+        shell: bash
+
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest]
+        python: ['3.9']
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup and Install
+        uses: ./.github/actions/setup-and-install
+        with:
+          python-version: ${{ matrix.python }}
+          dependencies: '--with test'
+
+      - name: Run tests
+        working-directory: ./src/ranged_heap
+        run: poetry run pytest
+        shell: bash

@@ -14,55 +14,55 @@ permissions:
   contents: read
 
 jobs:
-  # lint:
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       os: [macos-latest]
-  #       python: ['3.9']
+  lint:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest]
+        python: ['3.9']
 
-  #   runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
 
-  #   steps:
-  #     - uses: actions/checkout@v3
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: Setup and Install
-  #       uses: ./.github/actions/setup-and-install
-  #       with:
-  #         python-version: ${{ matrix.python }}
-  #         dependencies: '--with dev'
+      - name: Setup and Install
+        uses: ./.github/actions/setup-and-install
+        with:
+          python-version: ${{ matrix.python }}
+          dependencies: '--with dev'
 
-  #     - name: Ruff check
-  #       working-directory: ./src/ranged_heap
-  #       run: poetry run ruff check
-  #       shell: bash
+      - name: Ruff check
+        working-directory: ./src/ranged_heap
+        run: poetry run ruff check
+        shell: bash
 
-  # test:
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       os: [macos-latest]
-  #       python: ['3.9']
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest]
+        python: ['3.9']
 
-  #   runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
 
-  #   steps:
-  #     - uses: actions/checkout@v3
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: Setup and Install
-  #       uses: ./.github/actions/setup-and-install
-  #       with:
-  #         python-version: ${{ matrix.python }}
-  #         dependencies: '--with test'
+      - name: Setup and Install
+        uses: ./.github/actions/setup-and-install
+        with:
+          python-version: ${{ matrix.python }}
+          dependencies: '--with test'
 
-  #     - name: Run tests
-  #       working-directory: ./src/ranged_heap
-  #       run: poetry run pytest
-  #       shell: bash
+      - name: Run tests
+        working-directory: ./src/ranged_heap
+        run: poetry run pytest
+        shell: bash
 
   doc:
     if: github.ref == 'refs/heads/main'
-    # needs: [lint, test]
+    needs: [lint, test]
     runs-on: ubuntu-latest
     permissions:
       contents: write

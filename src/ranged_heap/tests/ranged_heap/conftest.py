@@ -23,6 +23,13 @@ def ranged_heap() -> rh.RangedHeap:
 
 @pytest.fixture
 def ranged_heap_str() -> str:
+    """Provide a fixture that reads the contents of a file located at RANGED_HEAP_STR_PATH and returns it as a string.
+
+    This fixture is useful for tests that require access to the file's content without explicitly opening the file within each test. It abstracts the file reading operation, making tests cleaner and focusing on the logic rather than file handling.
+
+    Returns:
+    - str: The content of the file located at RANGED_HEAP_STR_PATH.
+    """
     with open(RANGED_HEAP_STR_PATH) as f:
         return f.read()
 

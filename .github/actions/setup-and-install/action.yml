@@ -8,7 +8,7 @@ inputs:
   dependencies:
     description: 'Dependencies to install with Poetry'
     required: true
-    default: '--with dev'
+    default: '--only main'
 runs:
   using: 'composite'
   steps:

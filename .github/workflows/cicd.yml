@@ -101,11 +101,14 @@ jobs:
 
       - name: Create git tag
         id: get_version
-        run: echo ::set-output name=VERSION::$(poetry version -s)
-      
+        run: |
+          echo "VERSION=$(poetry version -s)" >> $GITHUB_ENV
+          echo "Version set to $(poetry version -s)"
+          echo "Version from GITHUB_ENV: $VERSION"
+
       - name: Push tag
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git tag v${{ steps.get_version.outputs.VERSION }}
-          git push origin v${{ steps.get_version.outputs.VERSION }}
+          git tag v${{ env.VERSION }}
+          git push origin v${{ env.VERSION }}
